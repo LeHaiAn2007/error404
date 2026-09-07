@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ReadMore - Nền tảng chia sẻ và khám phá những cuốn sách hay, mang lại tri thức và nguồn cảm hứng bất tận.">
+    <title>ReadMore - Khám phá thế giới sách</title>
+</head>
+<body>
+
+    <!--
+      HEADER:
+      Đại diện cho phần đầu của trang web.
+      Khu vực này thường chứa nhận diện thương hiệu (logo, tên website, tiêu đề trang)
+      và khu vực điều hướng chính để người dùng dễ dàng truy cập các trang quan trọng.
+    -->
+    <header>
+        <h1>ReadMore</h1>
+        <p>Đọc nhiều hơn, hiểu sâu hơn</p>
+        
+        <!--
+          NAV:
+          Đại diện cho khu vực chứa các liên kết điều hướng chính của trang.
+          Sử dụng danh sách <ul> và <li> vì menu điều hướng bản chất là một danh sách 
+          có thứ tự cấu trúc logic, giúp Screen Reader và Search Engine dễ đọc và hiểu ngữ cảnh.
+        -->
+        <nav>
+            <ul>
+                <li><a href="#hero">Trang chủ</a></li>
+                <li><a href="#featured-books">Sách nổi bật</a></li>
+                <li><a href="#categories">Thể loại</a></li>
+                <li><a href="#about">Về ReadMore</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--
+      MAIN:
+      Đại diện cho nội dung chính, cốt lõi nhất của toàn bộ document.
+      Nội dung bên trong <main> là độc nhất đối với trang này, 
+      hoàn toàn phân biệt với các thành phần dùng chung lặp lại như header, footer, hay sidebar.
+    -->
+    <main>
+
+        <!--
+          SECTION (HERO):
+          Được tổ chức thành <section> vì đây là một nhóm nội dung theo chủ đề cụ thể (Hero Section).
+          Nó mang vai trò semantic là giới thiệu tổng quan mục đích của trang web,
+          kết hợp thông điệp chính và lời kêu gọi hành động (CTA).
+        -->
+        <section id="hero">
+            <h2>Chào mừng đến với ReadMore</h2>
+            <p>Khám phá hàng ngàn tựa sách hấp dẫn từ khắp nơi trên thế giới. Nâng cao kiến thức và nuôi dưỡng tâm hồn qua từng trang sách.</p>
+            <a href="#featured-books">Khám phá sách ngay</a>
+        </section>
+
+        <!--
+          SECTION (FEATURED BOOKS):
+          Sử dụng <section> để nhóm danh sách các cuốn sách nổi bật thành một chủ đề lớn logic trên trang.
+          Điều này giúp chia nhỏ cấu trúc của <main> thành các phần dễ định vị.
+        -->
+        <section id="featured-books">
+            <h2>Sách Nổi Bật</h2>
+
+            <!--
+              ARTICLE:
+              Sử dụng <article> cho từng quyển sách vì mỗi cuốn sách là một thực thể thông tin độc lập,
+              hoàn chỉnh và có thể được trích xuất, tái sử dụng hoặc phân phối riêng lẻ.
+              Điểm khác biệt về semantic: <section> dùng để gom nhóm nội dung chung chung, 
+              còn <article> dành cho các nội dung độc lập tự nó đã có ý nghĩa trọn vẹn.
+            -->
+            <article>
+                <h3>Nhà Giả Kim</h3>
+                <p>Tác giả: Paulo Coelho</p>
+                <p>Một câu chuyện cổ tích giản dị, nhân ái, giàu chất thơ, thấm đẫm những minh triết huyền bí của phương Đông.</p>
+                <a href="/books/nha-gia-kim">Đọc thêm</a>
+            </article>
+
+            <article>
+                <h3>Đắc Nhân Tâm</h3>
+                <p>Tác giả: Dale Carnegie</p>
+                <p>Cuốn sách duy nhất về thể loại self-help liên tục đứng đầu danh mục sách bán chạy nhất do báo The New York Times bình chọn.</p>
+                <a href="/books/dac-nhan-tam">Đọc thêm</a>
+            </article>
+
+            <article>
+                <h3>Sapiens: Lược Sử Loài Người</h3>
+                <p>Tác giả: Yuval Noah Harari</p>
+                <p>Cuốn sách đưa chúng ta vào một chuyến đi kinh ngạc qua toàn bộ lịch sử loài người, từ những cội rễ tiến hóa đến thời đại của kỹ thuật di truyền.</p>
+                <a href="/books/sapiens">Đọc thêm</a>
+            </article>
+        </section>
+
+        <!--
+          SECTION (CATEGORIES):
+          Vai trò semantic của section này là gom nhóm danh mục các thể loại sách.
+          Nó phân tách phần thể loại khỏi phần sách nổi bật, tạo thành một nhánh riêng 
+          trong document outline để người dùng có thể duyệt tài liệu dễ dàng.
+        -->
+        <section id="categories">
+            <h2>Thể Loại Sách</h2>
+            <ul>
+                <li><a href="/categories/van-hoc">Văn học</a></li>
+                <li><a href="/categories/kinh-doanh">Kinh doanh</a></li>
+                <li><a href="/categories/cong-nghe">Công nghệ</a></li>
+                <li><a href="/categories/khoa-hoc">Khoa học</a></li>
+                <li><a href="/categories/phat-trien-ban-than">Phát triển bản thân</a></li>
+            </ul>
+        </section>
+
+        <!--
+          SECTION (ABOUT):
+          Sử dụng <section> để nhóm thông tin giới thiệu chung về nền tảng.
+          Việc này minh họa một <main> hoàn toàn có thể chứa nhiều khối nội dung độc lập 
+          nhưng cùng hỗ trợ truyền tải nội dung chính của trang web.
+        -->
+        <section id="about">
+            <h2>Giới Thiệu Về ReadMore</h2>
+            <p>ReadMore được thành lập với sứ mệnh lan tỏa văn hóa đọc đến mọi người. Chúng tôi cung cấp những gợi ý sách chọn lọc giúp bạn tiết kiệm thời gian tìm kiếm và tập trung vào việc hấp thụ tri thức.</p>
+        </section>
+
+    </main>
+
+    <!--
+      FOOTER:
+      Đại diện cho phần chân trang của toàn bộ document.
+      Đây là phần semantic phân định rõ ràng nội dung kết thúc trang.
+      Những loại thông tin thường được đặt ở đây bao gồm: bản quyền (copyright), 
+      thông tin tác giả, liên kết đến các trang pháp lý (chính sách, điều khoản), 
+      hoặc thông tin liên hệ.
+    -->
+    <footer>
+        <p>&copy; 2026 ReadMore. All rights reserved.</p>
+        <ul>
+            <li><a href="/contact">Liên hệ</a></li>
+            <li><a href="/privacy">Chính sách bảo mật</a></li>
+            <li><a href="/terms">Điều khoản sử dụng</a></li>
+        </ul>
+    </footer>
+
+</body>
+</html>
