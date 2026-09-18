@@ -1,0 +1,219 @@
+/* =========================================================
+   1. RESET CHUNG & CẤU HÌNH TRANG WEB
+   ========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333333;
+    background-color: #f8f9fa;
+}
+
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* =========================================================
+   2. FLEXBOX: HEADER & THANH ĐIỀU HƯỚNG (NAV)
+   ========================================================= */
+.header-container {
+    background-color: #0f172a;
+    padding: 1rem 2rem;
+
+    /* Áp dụng FLEXBOX */
+    display: flex;
+    flex-direction: row;            /* Hướng sắp xếp: Theo chiều ngang */
+    justify-content: space-between; /* Căn chỉnh trục chính: Đẩy logo và menu ra 2 đầu */
+    align-items: center;            /* Căn chỉnh trục phụ: Căn giữa theo chiều dọc */
+    
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.nav-list {
+    list-style: none;
+
+    /* Áp dụng FLEXBOX */
+    display: flex;
+    flex-direction: row;            /* Hướng sắp xếp: Hàng ngang */
+    gap: 1.5rem;                    /* Khoảng cách đồng đều giữa các item */
+    flex-wrap: wrap;                /* Cho phép xuống dòng khi hết không gian màn hình */
+}
+
+.nav-list a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-list a:hover {
+    color: #38bdf8;
+}
+
+/* =========================================================
+   3. FLEXBOX: SECTION GIỚI THIỆU BẢN THÂN (ABOUT)
+   ========================================================= */
+.about-section {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+    /* Áp dụng FLEXBOX */
+    display: flex;
+    flex-direction: row;            /* Hướng sắp xếp: Nằm ngang (Chữ trái, Ảnh phải) */
+    justify-content: space-between; /* Căn chỉnh trục chính: Đẩy 2 khối ra 2 bên */
+    align-items: center;            /* Căn chỉnh trục phụ: Căn giữa chiều dọc */
+    gap: 2rem;                      /* Khoảng cách đồng đều giữa các item */
+    flex-wrap: wrap;                /* Cho phép xuống dòng khi hết không gian trên mobile */
+}
+
+.about-text {
+    flex: 1;                        /* Tự co giãn chiếm không gian còn lại */
+}
+
+.about-text h1 span {
+    color: #0284c7;
+}
+
+.about-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #0284c7;
+}
+
+/* =========================================================
+   4. CSS GRID: SECTION DỰ ÁN (PROJECTS)
+   ========================================================= */
+.projects-section {
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+}
+
+.projects-grid {
+    /* Áp dụng CSS GRID */
+    display: grid;
+    /* Định nghĩa 2 cột với độ rộng phân chia linh hoạt bằng đơn vị fr */
+    grid-template-columns: 1fr 1fr; 
+    /* Định nghĩa chiều cao tự động cho từng hàng */
+    grid-template-rows: auto;
+    /* Khoảng cách giữa các ô lưới */
+    gap: 1.5rem; 
+}
+
+.project-card {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+
+    /* Áp dụng Flexbox bên trong thẻ để đẩy nút bấm xuống đáy */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+/* Sử dụng grid-column cho phần tử trải rộng nhiều cột */
+.featured-project {
+    grid-column: 1 / -1;            /* Cho phần tử trải rộng từ cột 1 đến cột cuối cùng */
+    background: #f0f9ff;
+    border-color: #bae6fd;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #0284c7;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+.btn:hover {
+    background-color: #0369a1;
+}
+
+/* =========================================================
+   5. CSS GRID: SECTION KỸ NĂNG (SKILLS)
+   ========================================================= */
+.skills-section {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.skills-grid {
+    list-style: none;
+
+    /* Áp dụng CSS GRID */
+    display: grid;
+    /* Định nghĩa 2 cột linh hoạt bằng fr */
+    grid-template-columns: 1fr 1fr; 
+    /* Định nghĩa chiều cao các hàng */
+    grid-template-rows: auto;
+    /* Khoảng cách giữa các ô lưới */
+    gap: 1rem; 
+}
+
+.skill-item {
+    background: #f1f5f9;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* =========================================================
+   6. FLEXBOX: FOOTER
+   ========================================================= */
+.footer-container {
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 1.5rem;
+
+    /* Áp dụng FLEXBOX */
+    display: flex;
+    flex-direction: row;            /* Hướng sắp xếp: Hàng ngang */
+    justify-content: center;        /* Căn chỉnh trục chính: Căn giữa theo chiều ngang */
+    align-items: center;            /* Căn chỉnh trục phụ: Căn giữa theo chiều dọc */
+}
+
+/* =========================================================
+   7. RESPONSIVE CHO MÀN HÌNH ĐIỆN THOẠI
+   ========================================================= */
+@media (max-width: 768px) {
+    .projects-grid,
+    .skills-grid {
+        /* Tự chuyển về 1 cột linh hoạt trên màn hình nhỏ */
+        grid-template-columns: 1fr; 
+    }
+}
