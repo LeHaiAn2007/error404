@@ -1,0 +1,47 @@
+.parallax-banner {
+  position: relative;
+  display: flex;
+  min-height: 45vh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 3rem 1.5rem;
+  background-image: url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=85");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+}
+
+.parallax-banner::before {
+  position: absolute;
+  z-index: 0;
+  background: rgb(0 0 0 / 55%);
+  content: "";
+  inset: 0;
+}
+
+.parallax-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 48rem);
+}
+
+.parallax-content h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.parallax-content p {
+  margin: 0 auto;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .parallax-banner {
+    min-height: 300px;
+    background-attachment: scroll;
+  }
+}
