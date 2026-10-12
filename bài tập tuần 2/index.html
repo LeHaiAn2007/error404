@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Cá Nhân - Nguyễn Văn A | Full Stack Developer</title>
+    <style>
+        /* CSS Reset & Cơ bản giúp trang hiển thị đẹp mắt, trực quan */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --card-border: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+
+        /* Định dạng Header & Navigation */
+        header {
+            background-color: var(--bg-white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Định dạng Main & Sections */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        section {
+            background: var(--bg-white);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #eff6ff;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Section Giới thiệu */
+        .intro-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .intro-container p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Section Kỹ năng */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-group {
+            background-color: var(--bg-light);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .skill-group h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-group ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .skill-group li {
+            padding: 0.25rem 0;
+            color: var(--text-muted);
+        }
+
+        .skill-group li::before {
+            content: "✓ ";
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Section Dự án */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        article.project-card {
+            background: var(--bg-light);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        article.project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: #dbeafe;
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .project-link {
+            align-self: flex-start;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Định dạng Footer */
+        footer {
+            background-color: var(--text-main);
+            color: #d1d5db;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: #93c5fd;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-contacts {
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =================================================================
+         KHỐI SEMANTIC: <header>
+         - Vai trò: Đại diện cho phần đầu của trang web hoặc đầu của một khu vực nội dung.
+         - Ứng dụng ở đây: Dùng làm tiêu đề trang chính, chứa logo thương hiệu cá nhân 
+           và thanh menu điều hướng giúp người dùng dễ dàng chuyển đến các phần khác nhau.
+         ================================================================= -->
+    <header>
+        <!-- Thẻ <nav>: Đại diện cho khối liên kết điều hướng (navigation) của website -->
+        <nav>
+            <a href="#about" class="logo">DevPortfolio.</a>
+            <ul class="nav-links">
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#skills">Kỹ năng</a></li>
+                <li><a href="#projects">Dự án</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- =================================================================
+         KHỐI SEMANTIC: <main>
+         - Vai trò: Đại diện cho phần nội dung chính, cốt lõi và độc nhất của tài liệu.
+         - Lưu ý chuẩn W3C: Không nên có nhiều hơn một thẻ <main> trong một trang tài liệu,
+           và không chứa nội dung lặp lại xuyên suốt các trang (như thanh menu, footer chung).
+         ================================================================= -->
+    <main>
+
+        <!-- =============================================================
+             KHỐI SEMANTIC: <section id="about"> (Section 1)
+             - Vai trò: Thẻ <section> định nghĩa một khu vực có nội dung độc lập theo một chủ đề cụ thể.
+             - Mục đích ở đây: Trình bày thông tin tổng quan, học vấn, định hướng nghề nghiệp của lập trình viên.
+             ============================================================= -->
+        <section id="about">
+            <h2>Giới Thiệu Bản Thân</h2>
+            <div class="intro-container">
+                <p class="tagline">Xin chào! Mình là Nguyễn Văn A – Full Stack Developer nhiệt huyết với tư duy sản phẩm và tối ưu trải nghiệm người dùng.</p>
+                <p>
+                    Mình tốt nghiệp chuyên ngành Kỹ thuật Phần mềm và có hơn 2 năm kinh nghiệm thực chiến trong việc xây dựng các ứng dụng web hiệu năng cao, mở rộng tốt (Scalable Web Applications). Với nền tảng vững chắc cả về Front-end lẫn Back-end, mình luôn hứng thú với việc biến những ý tưởng phức tạp thành các sản phẩm kỹ thuật số trực quan, mượt mà và thân thiện với người dùng.
+                </p>
+                <p>
+                    Bên cạnh việc viết code chuẩn Clean Architecture, mình đam mê tìm hiểu kiến trúc Cloud, tối ưu hóa cơ sở dữ liệu và liên tục cập nhật các công nghệ hiện đại nhằm giải quyết bài toán thực tế của doanh nghiệp một cách hiệu quả nhất.
+                </p>
+            </div>
+        </section>
+
+        <!-- =============================================================
+             KHỐI SEMANTIC: <section id="skills"> (Section 2)
+             - Vai trò: Phân vùng nội dung danh mục kỹ năng chuyên môn.
+             - Mục đích ở đây: Nhóm các năng lực kỹ thuật (Front-end, Back-end, Database, DevOps/Tools)
+               để nhà tuyển dụng hoặc khách hàng đánh giá nhanh năng lực chuyên môn.
+             ============================================================= -->
+        <section id="skills">
+            <h2>Kỹ Năng Chuyên Môn</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-group">
+                    <h3>Front-End</h3>
+                    <ul>
+                        <li>HTML5, CSS3, JavaScript (ES6+)</li>
+                        <li>TypeScript & React.js / Next.js</li>
+                        <li>Tailwind CSS, Bootstrap 5</li>
+                        <li>Responsive Web Design & Web Accessibility</li>
+                    </ul>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Back-End</h3>
+                    <ul>
+                        <li>Node.js (Express.js, NestJS)</li>
+                        <li>Python (Django, FastAPI)</li>
+                        <li>RESTful API & GraphQL Design</li>
+                        <li>Authentication (JWT, OAuth2)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Database & Cloud</h3>
+                    <ul>
+                        <li>PostgreSQL, MySQL</li>
+                        <li>MongoDB, Redis Cache</li>
+                        <li>Docker & Docker Compose</li>
+                        <li>Git, GitHub Actions CI/CD</li>
+                    </ul>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Kỹ Năng Mềm</h3>
+                    <ul>
+                        <li>Tư duy giải quyết vấn đề (Problem-Solving)</li>
+                        <li>Làm việc nhóm theo quy trình Agile / Scrum</li>
+                        <li>Giao tiếp kỹ thuật & Đọc hiểu tài liệu tiếng Anh</li>
+                        <li>Tự học và thích ứng công nghệ mới</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =============================================================
+             KHỐI SEMANTIC: <section id="projects"> (Section 3)
+             - Vai trò: Phân vùng nội dung các sản phẩm / dự án đã thực hiện.
+             - Sử dụng thẻ <article>: Mỗi dự án là một thẻ <article> độc lập, có thể tái sử dụng 
+               hoặc đứng riêng lẻ với đầy đủ thông tin (tên dự án, giải pháp, công nghệ sử dụng).
+             ============================================================= -->
+        <section id="projects">
+            <h2>Dự Án Nổi Bật</h2>
+            <div class="projects-grid">
+
+                <!-- Thẻ <article>: Thể hiện một thành phần độc lập, khép kín trong tài liệu -->
+                <article class="project-card">
+                    <div>
+                        <h3>Hệ Thống Thương Mại Điện Tử (E-Commerce Platform)</h3>
+                        <p>Xây dựng nền tảng mua sắm trực tuyến hỗ trợ giỏ hàng thời gian thực, tích hợp cổng thanh toán VNPay/Stripe và bảng quản trị sản phẩm, đơn hàng thông minh.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React.js</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">Xem mã nguồn & Demo &rarr;</a>
+                </article>
+
+                <!-- Dự án 2 -->
+                <article class="project-card">
+                    <div>
+                        <h3>Ứng Dụng Quản Lý Công Việc Nhóm (Task Management App)</h3>
+                        <p>Ứng dụng theo phong cách Kanban giúp phân bổ công việc, theo dõi tiến độ sprint theo thời gian thực sử dụng WebSocket và phân quyền chi tiết theo vai trò thành viên.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Socket.io</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">Xem mã nguồn & Demo &rarr;</a>
+                </article>
+
+                <!-- Dự án 3 -->
+                <article class="project-card">
+                    <div>
+                        <h3>Trang Blog Chia Sẻ Kiến Thức Kỹ Thuật (Tech Blog & CMS)</h3>
+                        <p>Website viết và chia sẻ bài viết kỹ thuật hỗ trợ Markdown, đánh số mục lục tự động, tính năng bình luận tương tác và tối ưu hóa điểm số SEO Google Lighthouse 95+.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML5 / SCSS</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">Xem mã nguồn & Demo &rarr;</a>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =================================================================
+         KHỐI SEMANTIC: <footer>
+         - Vai trò: Đại diện cho phần chân trang của tài liệu hoặc của một section.
+         - Mục đích ở đây: Chứa thông tin bản quyền (copyright), liên kết mạng xã hội 
+           và phương thức liên hệ chính thức của lập trình viên.
+         ================================================================= -->
+    <footer id="contact">
+        <p><strong>Kết nối với mình:</strong></p>
+        <div class="footer-contacts">
+            <a href="mailto:contact.nguyenvana@gmail.com">Email</a> |
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a> |
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <p class="copyright">&copy; 2026 Nguyễn Văn A. Bản quyền thuộc về tác giả. Xây dựng bằng Semantic HTML5 chuẩn SEO.</p>
+    </footer>
+
+</body>
+</html>
