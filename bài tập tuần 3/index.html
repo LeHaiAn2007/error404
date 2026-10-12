@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Cá Nhân - Nguyễn Văn A | Full Stack Developer</title>
+    <style>
+        /* ==========================================================================
+           1. CƠ BẢN VÀ THIẾT LẬP BIẾN (CSS RESET & VARIABLES)
+           ========================================================================== */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --card-border: #e5e7eb;
+            --success-color: #059669;
+            --success-bg: #ecfdf5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+
+        /* ==========================================================================
+           2. HEADER & NAVIGATION (DÙNG FLEXBOX & GAP)
+           ========================================================================== */
+        header {
+            background-color: var(--bg-white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            gap: 1.5rem; /* Khoảng cách gap giữa Logo và Menu */
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem; /* Khoảng cách gap đồng nhất giữa các thẻ li */
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* ==========================================================================
+           3. YÊU CẦU 1: BỐ CỤC TỔNG THỂ (MAIN & SIDEBAR) SỬ DỤNG CSS GRID
+           - Phân chia cấu trúc thành 2 cột: Sidebar (cột cố định) & Main (nội dung)
+           - Tự động co giãn và chuyển thành 1 cột trên thiết bị nhỏ (Responsive)
+           ========================================================================== */
+        .layout-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            /* ÁP DỤNG CSS GRID: chia cột Sidebar & Main */
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            /* ÁP DỤNG YÊU CẦU GAP: Khoảng cách phân cách giữa Sidebar và Main */
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* KHỐI SIDEBAR (<aside>) */
+        aside.sidebar {
+            position: sticky;
+            top: 5.5rem; /* Giữ sidebar cố định nhẹ nhàng khi cuộn */
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Gap đều đặn giữa các khối con trong Sidebar, không dùng margin */
+        }
+
+        .sidebar-card {
+            background: var(--bg-white);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem; /* Gap phân tách các phần tử con trong từng card sidebar */
+        }
+
+        .profile-card {
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .profile-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .profile-title {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem; /* Gap giữa chấm xanh và chữ */
+            background-color: var(--success-bg);
+            color: var(--success-color);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #a7f3d0;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+        }
+
+        .sidebar-card h3 {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.4rem;
+        }
+
+        .info-list,
+        .cert-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem; /* Gap giữa các dòng thông tin */
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .cert-list li {
+            background-color: var(--bg-light);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-color);
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem; /* Gap giữa 2 nút */
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1.5px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* KHỐI MAIN (<main class="main-content">) */
+        main.main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem; /* ÁP DỤNG GAP: Giãn cách đồng đều giữa các Section mà không dùng margin-bottom thô */
+            min-width: 0; /* Giúp Flex/Grid con không bị tràn (overflow) */
+        }
+
+        /* ==========================================================================
+           4. ĐỊNH DẠNG SECTION CHUNG
+           ========================================================================== */
+        section {
+            background: var(--bg-white);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2.25rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem; /* Gap giữa tiêu đề h2 và nội dung bên dưới */
+        }
+
+        section h2 {
+            font-size: 1.7rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Section Giới thiệu */
+        .intro-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Gap đều đặn giữa các đoạn văn */
+        }
+
+        .intro-container p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* ==========================================================================
+           5. YÊU CẦU 2: DANH SÁCH KỸ NĂNG (SKILLS) SỬ DỤNG FLEXBOX CO GIÃN TỰ ĐỘNG
+           - display: flex với flex-wrap: wrap
+           - flex: 1 1 240px giúp các thẻ tự động co giãn đều và rớt dòng mượt mà
+           ========================================================================== */
+        .skills-flex,
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap; /* Cho phép xuống dòng linh hoạt khi màn hình thu hẹp */
+            gap: 1.5rem;    /* ÁP DỤNG GAP: Tạo khoảng cách đồng đều giữa các nhóm kỹ năng */
+        }
+
+        .skill-group {
+            flex: 1 1 240px; /* Cơ chế Flexbox: Tự co giãn theo tỉ lệ và rớt dòng mượt mà */
+            background-color: var(--bg-light);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;    /* Gap giữa tiêu đề nhóm và danh sách các kỹ năng */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .skill-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .skill-group h3 {
+            font-size: 1.15rem;
+            color: var(--text-main);
+        }
+
+        .skill-group ul {
+            list-style-type: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;   /* Gap đồng nhất giữa các mục kỹ năng li */
+        }
+
+        .skill-group li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .skill-group li::before {
+            content: "✓ ";
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           6. SECTION DỰ ÁN (SỬ DỤNG CSS GRID & FLEXBOX CHO THẺ ARTICLE)
+           ========================================================================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;    /* Gap đều đặn giữa các card dự án */
+        }
+
+        article.project-card {
+            background: var(--bg-light);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.25rem;   /* Gap giữa khối mô tả và nút xem chi tiết */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        article.project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;   /* Gap giữa tiêu đề h3, đoạn văn p và khối tags */
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;    /* Gap giữa các tag công nghệ */
+        }
+
+        .tech-tag {
+            background: #dbeafe;
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .project-link {
+            align-self: flex-start;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           7. ĐỊNH DẠNG FOOTER (DÙNG FLEXBOX & GAP)
+           ========================================================================== */
+        footer {
+            background-color: var(--text-main);
+            color: #d1d5db;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.85rem;   /* Gap đều giữa các dòng văn bản và liên kết trong footer */
+        }
+
+        footer a {
+            color: #93c5fd;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-contacts {
+            display: flex;
+            align-items: center;
+            gap: 1rem;      /* Gap giữa các link liên kết trong footer */
+            font-size: 0.95rem;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+
+        /* ==========================================================================
+           8. RESPONSIVE DESIGN (MEDIA QUERIES)
+           ========================================================================== */
+        @media (max-width: 960px) {
+            /* Trên màn hình nhỏ (Tablet/Mobile), chuyển CSS Grid thành 1 cột */
+            .layout-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            aside.sidebar {
+                position: static; /* Bỏ sticky trên màn hình nhỏ để cuộn tự nhiên */
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- =================================================================
+         KHỐI SEMANTIC: <header>
+         - Vai trò: Đại diện cho phần đầu của trang web hoặc đầu của một khu vực nội dung.
+         - Ứng dụng ở đây: Dùng làm tiêu đề trang chính, chứa logo thương hiệu cá nhân 
+           và thanh menu điều hướng giúp người dùng dễ dàng chuyển đến các phần khác nhau.
+         ================================================================= -->
+    <header id="top-navigation">
+        <!-- Thẻ <nav>: Đại diện cho khối liên kết điều hướng (navigation) của website -->
+        <nav>
+            <a href="#about" class="logo">DevPortfolio.</a>
+            <ul class="nav-links">
+                <li><a href="#about">Giới thiệu</a></li>
+                <li class="nav-dropdown">
+                    <a href="#pricing" aria-haspopup="true">Khám phá <span aria-hidden="true">▾</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#pricing">Bảng giá</a></li>
+                        <li><a href="#gallery">Thư viện ảnh</a></li>
+                        <li><a href="#top-navigation">Thanh điều hướng</a></li>
+                        <li><a href="#product">Sản phẩm</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                    </ul>
+                </li>
+                <li><a href="#projects">Dự án</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+            <a class="nav-action" href="#product">Khám phá ngay <span aria-hidden="true">→</span></a>
+        </nav>
+    </header>
+
+    <!-- =================================================================
+         BỐ CỤC TỔNG THỂ (MAIN & SIDEBAR) SỬ DỤNG CSS GRID
+         - Sử dụng thẻ bao bọc .layout-container áp dụng CSS Grid (320px 1fr)
+         - Phân tách ranh giới rõ ràng giữa Sidebar cá nhân và Vùng nội dung chính
+         ================================================================= -->
+    <div class="layout-container">
+
+        <!-- =============================================================
+             KHỐI SEMANTIC: <aside class="sidebar"> (Sidebar)
+             - Vai trò: Chứa thông tin tổng quan cá nhân, avatar, liên hệ nhanh,
+               trạng thái làm việc và các chứng chỉ nghề nghiệp.
+             - Được định vị cố định (sticky) trên màn hình lớn và xếp cột trên mobile.
+             ============================================================= -->
+        <aside class="sidebar">
+            
+            <!-- Card thông tin cá nhân & Avatar -->
+            <div class="sidebar-card profile-card">
+                <div class="avatar-placeholder">NA</div>
+                <h1 class="profile-name">Nguyễn Văn A</h1>
+                <p class="profile-title">Full Stack Developer</p>
+                <div class="status-badge">
+                    <span class="status-dot"></span> Sẵn sàng nhận việc
+                </div>
+            </div>
+
+            <!-- Card thông tin liên hệ nhanh -->
+            <div class="sidebar-card">
+                <h3>Thông Tin Nhanh</h3>
+                <ul class="info-list">
+                    <li><strong>📍 Vị trí:</strong> TP. Hồ Chí Minh</li>
+                    <li><strong>🎓 Học vấn:</strong> ĐH Bách Khoa / CNTT</li>
+                    <li><strong>💼 Kinh nghiệm:</strong> 2+ năm thực chiến</li>
+                    <li><strong>📧 Email:</strong> nguyenvana@gmail.com</li>
+                </ul>
+            </div>
+
+            <!-- Card chứng chỉ chuyên môn -->
+            <div class="sidebar-card">
+                <h3>Chứng Chỉ Quốc Tế</h3>
+                <ul class="cert-list">
+                    <li>AWS Certified Cloud Practitioner</li>
+                    <li>IELTS 7.0 / TOEIC 850</li>
+                </ul>
+            </div>
+
+            <!-- Khối nút hành động tương tác -->
+            <div class="sidebar-actions">
+                <a href="#contact" class="btn btn-primary">Liên Hệ Phỏng Vấn</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Xem GitHub Hồ Sơ</a>
+            </div>
+
+        </aside>
+
+        <!-- =============================================================
+             KHỐI SEMANTIC: <main class="main-content"> (Main Content)
+             - Vai trò: Đại diện cho khu vực nội dung chính, cốt lõi của portfolio.
+             - Sử dụng Flexbox hướng cột với gap đồng nhất 2rem phân tách các section.
+             ============================================================= -->
+        <main class="main-content">
+
+            <!-- =============================================================
+                 KHỐI SEMANTIC: <section id="about"> (Section 1)
+                 - Vai trò: Trình bày thông tin tổng quan, học vấn, định hướng nghề nghiệp.
+                 ============================================================= -->
+            <section id="about">
+                <h2>Giới Thiệu Bản Thân</h2>
+                <div class="intro-container">
+                    <p class="tagline">Xin chào! Mình là Nguyễn Văn A – Full Stack Developer nhiệt huyết với tư duy sản phẩm và tối ưu trải nghiệm người dùng.</p>
+                    <p>
+                        Mình tốt nghiệp chuyên ngành Kỹ thuật Phần mềm và có hơn 2 năm kinh nghiệm thực chiến trong việc xây dựng các ứng dụng web hiệu năng cao, mở rộng tốt (Scalable Web Applications). Với nền tảng vững chắc cả về Front-end lẫn Back-end, mình luôn hứng thú với việc biến những ý tưởng phức tạp thành các sản phẩm kỹ thuật số trực quan, mượt mà và thân thiện với người dùng.
+                    </p>
+                    <p>
+                        Bên cạnh việc viết code chuẩn Clean Architecture, mình đam mê tìm hiểu kiến trúc Cloud, tối ưu hóa cơ sở dữ liệu và liên tục cập nhật các công nghệ hiện đại nhằm giải quyết bài toán thực tế của doanh nghiệp một cách hiệu quả nhất.
+                    </p>
+                </div>
+            </section>
+
+            <!-- =============================================================
+                 KHỐI SEMANTIC: <section id="skills"> (Section 2)
+                 - Áp dụng Flexbox với thuộc tính gap và flex co giãn tự động mượt mà.
+                 ============================================================= -->
+            <section id="skills">
+                <h2>Kỹ Năng Chuyên Môn</h2>
+                <div class="skills-flex">
+                    
+                    <div class="skill-group">
+                        <h3>Front-End</h3>
+                        <ul>
+                            <li>HTML5, CSS3, JavaScript (ES6+)</li>
+                            <li>TypeScript & React.js / Next.js</li>
+                            <li>Tailwind CSS, Bootstrap 5</li>
+                            <li>Responsive Web Design & Web Accessibility</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3>Back-End</h3>
+                        <ul>
+                            <li>Node.js (Express.js, NestJS)</li>
+                            <li>Python (Django, FastAPI)</li>
+                            <li>RESTful API & GraphQL Design</li>
+                            <li>Authentication (JWT, OAuth2)</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3>Database & Cloud</h3>
+                        <ul>
+                            <li>PostgreSQL, MySQL</li>
+                            <li>MongoDB, Redis Cache</li>
+                            <li>Docker & Docker Compose</li>
+                            <li>Git, GitHub Actions CI/CD</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3>Kỹ Năng Mềm</h3>
+                        <ul>
+                            <li>Tư duy giải quyết vấn đề (Problem-Solving)</li>
+                            <li>Làm việc nhóm theo quy trình Agile / Scrum</li>
+                            <li>Giao tiếp kỹ thuật & Đọc hiểu tài liệu tiếng Anh</li>
+                            <li>Tự học và thích ứng công nghệ mới</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- =============================================================
+                 KHỐI SEMANTIC: <section id="projects"> (Section 3)
+                 - Thể hiện các dự án nổi bật qua thẻ <article>, CSS Grid và gap.
+                 ============================================================= -->
+            <section id="projects">
+                <h2>Dự Án Nổi Bật</h2>
+                <div class="projects-grid">
+
+                    <!-- Thẻ <article>: Dự án 1 -->
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Hệ Thống Thương Mại Điện Tử (E-Commerce Platform)</h3>
+                            <p>Xây dựng nền tảng mua sắm trực tuyến hỗ trợ giỏ hàng thời gian thực, tích hợp cổng thanh toán VNPay/Stripe và bảng quản trị sản phẩm, đơn hàng thông minh.</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">React.js</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Redis</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">Xem mã nguồn & Demo &rarr;</a>
+                    </article>
+
+                    <!-- Thẻ <article>: Dự án 2 -->
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Ứng Dụng Quản Lý Công Việc Nhóm (Task Management App)</h3>
+                            <p>Ứng dụng theo phong cách Kanban giúp phân bổ công việc, theo dõi tiến độ sprint theo thời gian thực sử dụng WebSocket và phân quyền chi tiết theo vai trò thành viên.</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Next.js</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">Socket.io</span>
+                                <span class="tech-tag">MongoDB</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">Xem mã nguồn & Demo &rarr;</a>
+                    </article>
+
+                    <!-- Thẻ <article>: Dự án 3 -->
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Trang Blog Chia Sẻ Kiến Thức Kỹ Thuật (Tech Blog & CMS)</h3>
+                            <p>Website viết và chia sẻ bài viết kỹ thuật hỗ trợ Markdown, đánh số mục lục tự động, tính năng bình luận tương tác và tối ưu hóa điểm số SEO Google Lighthouse 95+.</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">HTML5 / SCSS</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">Xem mã nguồn & Demo &rarr;</a>
+                    </article>
+
+                </div>
+            </section>
+
+            <section id="pricing" class="exercise-section">
+                <div class="exercise-heading">
+                    <p class="eyebrow">GÓI DỊCH VỤ</p>
+                    <h2>Bảng giá dịch vụ</h2>
+                    <p>Chọn gói phù hợp với quy mô và mục tiêu phát triển của bạn.</p>
+                </div>
+                <div class="pricing-grid">
+                    <article class="pricing-card">
+                        <div class="pricing-copy">
+                            <p class="plan-name">Basic</p>
+                            <h3>199.000đ <span>/ tháng</span></h3>
+                            <p>Dành cho cá nhân bắt đầu xây dựng hiện diện trực tuyến và cần những công cụ thiết yếu.</p>
+                            <ul>
+                                <li>1 website cơ bản</li>
+                                <li>10 GB dung lượng</li>
+                                <li>Hỗ trợ qua email</li>
+                            </ul>
+                        </div>
+                        <a class="plan-button" href="#contact">Mua ngay</a>
+                    </article>
+                    <article class="pricing-card pricing-card-featured">
+                        <span class="plan-badge">Phổ biến nhất</span>
+                        <div class="pricing-copy">
+                            <p class="plan-name">Pro</p>
+                            <h3>499.000đ <span>/ tháng</span></h3>
+                            <p>Lựa chọn cân bằng cho nhóm đang phát triển, cần hiệu năng tốt và công cụ cộng tác.</p>
+                            <ul>
+                                <li>5 website chuyên nghiệp</li>
+                                <li>100 GB dung lượng</li>
+                                <li>Hỗ trợ ưu tiên 24/7</li>
+                                <li>Sao lưu tự động mỗi ngày</li>
+                            </ul>
+                        </div>
+                        <a class="plan-button" href="#contact">Mua ngay</a>
+                    </article>
+                    <article class="pricing-card">
+                        <div class="pricing-copy">
+                            <p class="plan-name">Enterprise</p>
+                            <h3>1.299.000đ <span>/ tháng</span></h3>
+                            <p>Giải pháp linh hoạt cho doanh nghiệp với yêu cầu vận hành lớn, bảo mật và hỗ trợ riêng.</p>
+                            <ul>
+                                <li>Website không giới hạn</li>
+                                <li>1 TB dung lượng tốc độ cao</li>
+                                <li>Chuyên viên hỗ trợ riêng</li>
+                                <li>Tích hợp và bảo mật nâng cao</li>
+                            </ul>
+                        </div>
+                        <a class="plan-button" href="#contact">Mua ngay</a>
+                    </article>
+                </div>
+            </section>
+
+            <section id="gallery" class="exercise-section">
+                <div class="exercise-heading">
+                    <p class="eyebrow">BỘ SƯU TẬP</p>
+                    <h2>Những góc nhìn truyền cảm hứng</h2>
+                    <p>Lưới ảnh bất đối xứng được tạo bằng CSS Grid và các ô span.</p>
+                </div>
+                <div class="masonry-gallery">
+                    <figure class="gallery-item gallery-tall">
+                        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Hồ nước yên bình giữa núi rừng" loading="lazy">
+                        <figcaption>Khoảnh khắc bình yên</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Bầu trời đêm phủ đầy sao" loading="lazy">
+                        <figcaption>Dưới bầu trời sao</figcaption>
+                    </figure>
+                    <figure class="gallery-item gallery-wide">
+                        <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Ánh nắng bình minh trên cánh đồng" loading="lazy">
+                        <figcaption>Bình minh ngày mới</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Thung lũng xanh nhìn từ trên cao" loading="lazy">
+                        <figcaption>Chạm vào thiên nhiên</figcaption>
+                    </figure>
+                    <figure class="gallery-item gallery-tall">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Đỉnh núi cao giữa mây trời" loading="lazy">
+                        <figcaption>Hành trình lên đỉnh</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Con đường nhỏ xuyên qua rừng" loading="lazy">
+                        <figcaption>Lối đi trong rừng</figcaption>
+                    </figure>
+                    <figure class="gallery-item gallery-wide">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Mặt hồ phản chiếu dãy núi" loading="lazy">
+                        <figcaption>Phản chiếu mùa hè</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Sóng biển xanh vỗ vào bờ" loading="lazy">
+                        <figcaption>Thanh âm đại dương</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="product" class="exercise-section">
+                <div class="exercise-heading">
+                    <p class="eyebrow">BỘ SƯU TẬP MỚI</p>
+                    <h2>Chi tiết sản phẩm</h2>
+                    <p>Bố cục hai cột responsive với các tùy chọn mua hàng trực quan.</p>
+                </div>
+                <article class="product-layout">
+                    <div class="product-visual">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&amp;fit=crop&amp;w=1400&amp;q=90" alt="Giày thể thao màu đỏ nổi bật" loading="lazy">
+                        <span class="product-label">Bộ sưu tập mới</span>
+                    </div>
+                    <div class="product-details">
+                        <p class="product-category">THỂ THAO / CHẠY BỘ</p>
+                        <h3>Velocity Runner</h3>
+                        <p class="product-rating"><span aria-label="5 trên 5 sao">★★★★★</span> <span>4.9 · 128 đánh giá</span></p>
+                        <p class="product-price">2.490.000đ <del>2.990.000đ</del></p>
+                        <p class="product-description">Thiết kế nhẹ và linh hoạt, đệm êm ái hỗ trợ bạn chinh phục mọi cung đường mỗi ngày.</p>
+                        <div class="product-option">
+                            <div class="option-label"><strong>Kích cỡ</strong><a href="#product">Hướng dẫn chọn size</a></div>
+                            <div class="size-options" role="group" aria-label="Chọn kích cỡ">
+                                <button type="button" aria-pressed="false">S</button>
+                                <button type="button" aria-pressed="true">M</button>
+                                <button type="button" aria-pressed="false">L</button>
+                            </div>
+                        </div>
+                        <div class="product-option">
+                            <strong>Màu sắc</strong>
+                            <div class="color-options" role="group" aria-label="Chọn màu sắc">
+                                <button class="color-swatch swatch-red" type="button" aria-label="Đỏ" aria-pressed="true"></button>
+                                <button class="color-swatch swatch-blue" type="button" aria-label="Xanh dương" aria-pressed="false"></button>
+                                <button class="color-swatch swatch-dark" type="button" aria-label="Đen" aria-pressed="false"></button>
+                            </div>
+                        </div>
+                        <div class="product-option">
+                            <strong>Số lượng</strong>
+                            <div class="quantity-control" aria-label="Điều chỉnh số lượng">
+                                <button type="button" aria-label="Giảm số lượng">−</button>
+                                <output aria-label="Số lượng">1</output>
+                                <button type="button" aria-label="Tăng số lượng">+</button>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button type="button" class="add-to-cart">Thêm vào giỏ hàng</button>
+                            <button type="button" class="favorite-button" aria-label="Thêm vào danh sách yêu thích">♡</button>
+                        </div>
+                        <p class="shipping-note">✓ Miễn phí giao hàng · Đổi trả trong 30 ngày</p>
+                    </div>
+                </article>
+            </section>
+
+            <section id="dashboard" class="exercise-section">
+                <div class="exercise-heading">
+                    <p class="eyebrow">QUẢN TRỊ</p>
+                    <h2>Tổng quan quản trị</h2>
+                    <p>Bảng điều khiển với thanh bên sticky, thẻ thống kê và bảng dữ liệu.</p>
+                </div>
+                <div class="admin-layout">
+                    <aside class="admin-sidebar" aria-label="Điều hướng quản trị">
+                        <a class="admin-brand" href="#dashboard"><span>◈</span> Studio Admin</a>
+                        <p class="admin-nav-label">MENU</p>
+                        <nav class="admin-nav">
+                            <a class="admin-nav-active" href="#dashboard"><span>▦</span> Tổng quan</a>
+                            <a href="#dashboard-orders"><span>▤</span> Đơn hàng</a>
+                            <a href="#dashboard"><span>♙</span> Khách hàng</a>
+                            <a href="#dashboard"><span>⚙</span> Cài đặt</a>
+                        </nav>
+                        <div class="admin-profile">
+                            <span class="admin-avatar">AN</span>
+                            <span><strong>An Nguyen</strong><small>Quản trị viên</small></span>
+                        </div>
+                    </aside>
+                    <div class="admin-content">
+                        <div class="dashboard-title">
+                            <div><p class="eyebrow">THỨ HAI, 12 THÁNG 10</p><h3>Chào buổi sáng, An 👋</h3></div>
+                            <button type="button" class="report-button">↓ Xuất báo cáo</button>
+                        </div>
+                        <div class="stats-grid">
+                            <article class="stat-card"><span class="stat-icon stat-purple">↗</span><p>Doanh thu</p><strong>48.290.000đ</strong><small class="stat-up">↑ 12,8% <span>so với tháng trước</span></small></article>
+                            <article class="stat-card"><span class="stat-icon stat-blue">▤</span><p>Đơn hàng</p><strong>1.284</strong><small class="stat-up">↑ 8,2% <span>so với tháng trước</span></small></article>
+                            <article class="stat-card"><span class="stat-icon stat-orange">♙</span><p>Khách hàng</p><strong>8.549</strong><small class="stat-up">↑ 4,6% <span>so với tháng trước</span></small></article>
+                            <article class="stat-card"><span class="stat-icon stat-green">◉</span><p>Tỷ lệ chuyển đổi</p><strong>3,24%</strong><small class="stat-down">↓ 0,4% <span>so với tháng trước</span></small></article>
+                        </div>
+                        <div class="data-table-card" id="dashboard-orders">
+                            <div class="table-heading"><div><h4>Đơn hàng gần đây</h4><p>Cập nhật danh sách giao dịch mới nhất</p></div><a href="#dashboard-orders">Xem tất cả →</a></div>
+                            <div class="table-scroll">
+                                <table>
+                                    <thead><tr><th>MÃ ĐƠN</th><th>KHÁCH HÀNG</th><th>NGÀY ĐẶT</th><th>SỐ TIỀN</th><th>TRẠNG THÁI</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>#ORD-2026</td><td><span class="customer-cell"><span class="customer-avatar avatar-lilac">MT</span>Minh Trần</span></td><td>12 Th10, 2026</td><td>1.290.000đ</td><td><span class="order-status status-complete">Hoàn thành</span></td></tr>
+                                        <tr><td>#ORD-2025</td><td><span class="customer-cell"><span class="customer-avatar avatar-peach">NL</span>Ngọc Lê</span></td><td>12 Th10, 2026</td><td>890.000đ</td><td><span class="order-status status-pending">Đang xử lý</span></td></tr>
+                                        <tr><td>#ORD-2024</td><td><span class="customer-cell"><span class="customer-avatar avatar-mint">PA</span>Phúc Anh</span></td><td>11 Th10, 2026</td><td>2.490.000đ</td><td><span class="order-status status-complete">Hoàn thành</span></td></tr>
+                                        <tr><td>#ORD-2023</td><td><span class="customer-cell"><span class="customer-avatar avatar-sky">TH</span>Thu Hà</span></td><td>11 Th10, 2026</td><td>459.000đ</td><td><span class="order-status status-cancel">Đã hủy</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- =================================================================
+         KHỐI SEMANTIC: <footer>
+         - Vai trò: Đại diện cho phần chân trang của tài liệu hoặc của một section.
+         - Mục đích ở đây: Chứa thông tin bản quyền (copyright), liên kết mạng xã hội 
+           và phương thức liên hệ chính thức của lập trình viên.
+         ================================================================= -->
+    <footer id="contact">
+        <p><strong>Kết nối với mình:</strong></p>
+        <div class="footer-contacts">
+            <a href="mailto:contact.nguyenvana@gmail.com">Email</a> |
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a> |
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+        <p class="copyright">&copy; 2026 Nguyễn Văn A. Bản quyền thuộc về tác giả. Xây dựng bằng Semantic HTML5 chuẩn SEO.</p>
+    </footer>
+
+</body>
+</html>
